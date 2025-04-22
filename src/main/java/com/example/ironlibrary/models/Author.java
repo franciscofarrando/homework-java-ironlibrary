@@ -1,11 +1,23 @@
 package com.example.ironlibrary.models;
 
-public class Author {
-    private String authorId;
-    private String name;
-    private String email;
-    private Book authorBook;
+import jakarta.persistence.*;
+import com.example.ironlibrary.models.Book;
 
+@Entity
+@Table(name = "author")
+public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "author_id")
+    private Integer authorId;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "email")
+    private String email;
+    @OneToOne
+    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @Column(name="author_book")
+    private Book authorBook;
     public Author() {
     }
     public Author(String name, String email, Book authorBook) {
@@ -14,11 +26,11 @@ public class Author {
         this.authorBook = authorBook;
     }
 
-    public String getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 
