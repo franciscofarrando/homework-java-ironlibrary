@@ -2,6 +2,9 @@ package com.example.ironlibrary.models;
 
 import jakarta.persistence.*;
 
+
+@Entity
+@Table(name = "issue")
 public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
