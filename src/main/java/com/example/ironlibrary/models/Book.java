@@ -1,6 +1,13 @@
 package com.example.ironlibrary.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String isbn;
     private String title;
     private String category;
@@ -14,6 +21,14 @@ public class Book {
         this.title = title;
         this.category = category;
         this.quantity = quantity;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIsbn() {
@@ -51,7 +66,8 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "isbn='" + isbn + '\'' +
+                "id=" + id +
+                ", isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", category='" + category + '\'' +
                 ", quantity=" + quantity +
