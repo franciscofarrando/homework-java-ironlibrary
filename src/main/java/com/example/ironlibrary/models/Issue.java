@@ -1,10 +1,23 @@
 package com.example.ironlibrary.models;
 
+import jakarta.persistence.*;
+
 public class Issue {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "issue_id")
     private int issueId;
+    @Column(name = "issue_date")
     private String issueDate;
+    @Column(name = "return_date")
     private String returnDate;
+    @OneToOne
+    @JoinColumn(name = "issuedId", referencedColumnName = "usn")
+    @Column(name = "issue_student")
     private Student issueStudent;
+    @OneToOne
+    @JoinColumn(name = "issuedId", referencedColumnName = "isbn")
+    @Column(name = "issue_book")
     private Book issueBook;
 
     public Issue() {
