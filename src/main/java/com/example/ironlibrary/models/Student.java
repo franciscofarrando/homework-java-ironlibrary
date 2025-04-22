@@ -1,9 +1,17 @@
 package com.example.ironlibrary.models;
 
-public class Student {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "students")
+public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usn")
     private String usn;
+    @Column(name = "name")
     private String name;
+
     public Student() {}
     public Student(String usn, String name) {
         this.usn = usn;
