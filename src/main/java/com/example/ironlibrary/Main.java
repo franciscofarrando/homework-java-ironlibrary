@@ -4,10 +4,12 @@ import com.example.ironlibrary.models.Author;
 import com.example.ironlibrary.models.Book;
 import com.example.ironlibrary.repository.AuthorRepository;
 import com.example.ironlibrary.repository.BookRepository;
+import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class Main {
 
     @Autowired
@@ -55,7 +57,8 @@ public class Main {
         int numberOfBooks = scanner.nextInt();
 
         Book book = new Book(isbn, title, category, numberOfBooks);
-        Author author = new Author(authorName, authorMail,book);
+        bookRepository.save(book);
+        Author author = new Author();
 
         authorRepository.save(author);
 

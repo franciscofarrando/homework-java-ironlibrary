@@ -13,15 +13,28 @@ public class Book {
     private String title;
     private String category;
     private int quantity;
+    @OneToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     public Book() {
     }
 
-    public Book(String isbn, String title, String category, int quantity) {
+    public Book( String isbn, String title, String category, int quantity, Author author) {
+
         this.isbn = isbn;
         this.title = title;
         this.category = category;
         this.quantity = quantity;
+        this.author = author;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public int getId() {
