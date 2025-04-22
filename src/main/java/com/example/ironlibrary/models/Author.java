@@ -15,11 +15,13 @@ public class Author {
     @Column(name = "email")
     private String email;
     @OneToOne
+
     @JoinColumn(name = "author_book", referencedColumnName = "isbn")
-    @Column(name="author_book")
     private Book authorBook;
+
     public Author() {
     }
+
     public Author(String name, String email, Book authorBook) {
         this.name = name;
         this.email = email;
