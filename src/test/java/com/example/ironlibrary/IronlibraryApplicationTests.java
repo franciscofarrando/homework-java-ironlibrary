@@ -38,7 +38,7 @@ class IronlibraryApplicationTests {
 	@DisplayName("add book in database")
 	void addBook() {
 		// Create a new book object
-		Book book = new Book("978-3-16-148410-0", "Test Book", "Fiction", 5);
+		Book book = new Book();
 		// Save the book to the database
 		bookRepository.save(book);
 		// Retrieve the book from the database
