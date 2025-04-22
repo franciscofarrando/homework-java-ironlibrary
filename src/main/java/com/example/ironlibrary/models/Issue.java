@@ -14,13 +14,12 @@ public class Issue {
     private String issueDate;
     @Column(name = "return_date")
     private String returnDate;
+
     @OneToOne
-    @JoinColumn(name = "issuedId", referencedColumnName = "usn")
-    @Column(name = "issue_student")
+    @JoinColumn(name = "student_usn", referencedColumnName = "usn")
     private Student issueStudent;
     @OneToOne
-    @JoinColumn(name = "issuedId", referencedColumnName = "isbn")
-    @Column(name = "issue_book")
+    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
     private Book issueBook;
 
     public Issue() {
