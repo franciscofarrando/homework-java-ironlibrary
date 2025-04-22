@@ -15,7 +15,7 @@ public class Author {
     @Column(name = "email")
     private String email;
     @OneToOne
-    @JoinColumn(name = "isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "author_book", referencedColumnName = "isbn")
     @Column(name="author_book")
     private Book authorBook;
     public Author() {
