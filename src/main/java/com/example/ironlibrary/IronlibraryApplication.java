@@ -13,6 +13,7 @@ import java.util.Scanner;
 @SpringBootApplication
 public class IronlibraryApplication implements CommandLineRunner {
 
+
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -21,7 +22,6 @@ public class IronlibraryApplication implements CommandLineRunner {
     public static void main(String[] args) {
 
         SpringApplication.run(IronlibraryApplication.class, args);
-
     }
 
     public void printCommands() {
