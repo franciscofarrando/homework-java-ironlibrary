@@ -6,13 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class IronlibraryApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		SpringApplication.run(IronlibraryApplication.class, args);
+        SpringApplication.run(IronlibraryApplication.class, args);
 
-		Main main = new Main();
-		main.scanCommands();
-
-	}
+        Main main=new Main();
+        main.menu();
+    }
 
 }
