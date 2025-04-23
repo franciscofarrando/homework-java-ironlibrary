@@ -13,7 +13,7 @@ public class Book {
     private String title;
     private String category;
     private int quantity;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
 

@@ -27,18 +27,7 @@ public class IronlibraryApplication implements CommandLineRunner {
         SpringApplication.run(IronlibraryApplication.class, args);
     }
 
-    public void printCommands() {
-        System.out.println("*********************************************");
-        System.out.println("1. Add a book");
-        System.out.println("2. Search book by title");
-        System.out.println("3. Search book by category");
-        System.out.println("4. Search book by Author");
-        System.out.println("5. List all books along with author");
-        System.out.println("6. Issue book to student");
-        System.out.println("7. List books by usn");
-        System.out.println("8. Exit");
-        System.out.println("*********************************************");
-    }
+
 
     public void addBook(){
         System.out.println("Añadiendo libro");
@@ -74,44 +63,79 @@ public class IronlibraryApplication implements CommandLineRunner {
         bookRepository.save(book);
 
     }
-
+//Inicia la app
     @Override
     public void run(String... args) throws Exception {
-
         Scanner scanner = new Scanner(System.in);
 
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("\n########################################################################");
-            System.out.println("# INTRODUCE UN COMANDO VÁLIDO DE LA SIGUIENTE LISTA (EXIT PARA SALIR): #");
-            System.out.println("########################################################################");
-            printCommands();
-            System.out.print("Enter your choice: ");
+        String[] menu = {"Add a book", "Search book by title", "Search book by" +
+                " category", "Search book by Author", "List all books along " +
+                "with author", "Isuue book to student", "List books by usn", "Exit"};
+        boolean userChoice = true;
 
-            int commandInt = scanner.nextInt();
-
-            switch (commandInt) {
-                case 1:// 1. Add a book
+        while (userChoice) {
+            for (int i = 0; i < menu.length; i++) {
+                System.out.println((i + 1) + " " + menu[i] + ":");
+            }
+            int userOption = scanner.nextInt();
+            switch (userOption) {
+                case 1:
+                    //Add a book
+                    System.out.println(menu[0]);
                     addBook();
+                    continue;
+                case 2:
+                    //Search book by title
+                    System.out.println(menu[1]);
+                    findBooksByTitle();
+
+                    continue;
+                case 3:
+                    System.out.println(menu[2]);
+
+                    //BookHandler.findBooksByCategory();
+                    continue;
+                case 4:
+                    System.out.println(menu[3]);
+                    continue;
+                case 5:
+                    System.out.println(menu[4]);
+                    //BookHandler.findAllBooks();
                     break;
-                case 2:// 2. Search book by title
-                    break;
-                case 3:// 3. Search book by category
-                    break;
-                case 4:// 4. Search book by Author
-                    break;
-                case 5://5. List all books along with author
-                    break;
-                case 6:// 6. Issue book to student
-                    break;
-                case 7:// 7. List books by usn
-                    break;
-                case 8:// 8. Exit
-                    exit = true;
-                    break;
-                default:
+                case 6:
+                    System.out.println(menu[5]);
+                    continue;
+                case 7:
+                    System.out.println(menu[6]);
+                    userChoice = false;
                     break;
             }
+
+
+        }
+
+    }
+
+    private void findBooksByTitle() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter book title: ");
+            String title = scanner.nextLine().trim();
+            Book book = bookRepository.findByTitle(title);
+            if (book != null) {
+                System.out.println("Book ISBN                Book Title          Category           Nº of Books");
+                System.out.println(book.getIsbn() + "        " + book.getTitle() + "          " + book.getCategory() + "   " +
+                        "        " + book.getQuantity());
+                System.out.println("------------------------------------------------------");
+
+            } else {
+                System.out.println("Book not found");
+            }
+            System.out.println("To exit press a key");
+            scanner.nextLine();
+
+        }catch (Exception e){
+            throw new RuntimeException("error when entering title data");
         }
 
     }
