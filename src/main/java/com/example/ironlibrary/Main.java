@@ -7,9 +7,10 @@ import com.example.ironlibrary.repository.BookRepository;
 import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
-@Component
+
 public class Main {
 
     @Autowired
@@ -56,11 +57,11 @@ public class Main {
         System.out.print("Enter number of books:");
         int numberOfBooks = scanner.nextInt();
 
-        Book book = new Book(isbn, title, category, numberOfBooks);
+        Book book = new Book(isbn, title, category, numberOfBooks, null);
         bookRepository.save(book);
-        Author author = new Author();
-
-        authorRepository.save(author);
+//        Author author = new Author();
+//
+//        authorRepository.save(author);
 
     }
 
@@ -102,9 +103,4 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-
-        Main main = new Main();
-        main.scanCommands();
-    }
 }

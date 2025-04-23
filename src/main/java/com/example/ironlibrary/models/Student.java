@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @Column(name = "usn")
     private String usn;
     @Column(name = "name")
@@ -16,6 +17,14 @@ public class Student {
     public Student(String usn, String name) {
         this.usn = usn;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsn() {
@@ -37,7 +46,8 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "usn='" + usn + '\'' +
+                "id=" + id +
+                ", usn='" + usn + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }
