@@ -1,5 +1,6 @@
 package com.example.ironlibrary;
 
+import com.example.ironlibrary.models.Author;
 import com.example.ironlibrary.models.Book;
 import com.example.ironlibrary.repository.AuthorRepository;
 import com.example.ironlibrary.repository.BookRepository;
@@ -63,11 +64,14 @@ public class IronlibraryApplication implements CommandLineRunner {
         System.out.print("Enter number of books:");
         int numberOfBooks = scanner.nextInt();
 
-        Book book = new Book(isbn, title, category, numberOfBooks, null);
+        Author authorFound = authorRepository.findByName(authorName);
+        Book book;
+        if(authorFound != null) {
+            book = new Book(isbn, title, category, numberOfBooks, authorFound);
+        }else{
+            book = new Book(isbn, title, category, numberOfBooks, null);
+        }
         bookRepository.save(book);
-//        Author author = new Author();
-//
-//        authorRepository.save(author);
 
     }
 
