@@ -14,18 +14,15 @@ public class Author {
     private String name;
     @Column(name = "email")
     private String email;
-    @OneToOne
 
-    @JoinColumn(name = "author_book", referencedColumnName = "isbn")
-    private Book authorBook;
 
     public Author() {
     }
 
-    public Author(String name, String email, Book authorBook) {
+    public Author(String name, String email) {
         this.name = name;
         this.email = email;
-        this.authorBook = authorBook;
+
     }
 
     public Integer getAuthorId() {
@@ -52,14 +49,6 @@ public class Author {
         this.email = email;
     }
 
-    public Book getAuthorBook() {
-        return authorBook;
-    }
-
-    public void setAuthorBook(Book authorBook) {
-        this.authorBook = authorBook;
-    }
-
 
     @Override
     public String toString() {
@@ -67,7 +56,6 @@ public class Author {
                 "authorId='" + authorId + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", authorBook=" + authorBook +
                 '}';
     }
 }

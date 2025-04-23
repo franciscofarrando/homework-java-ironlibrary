@@ -13,7 +13,7 @@ public class Book {
     private String title;
     private String category;
     private int quantity;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
 

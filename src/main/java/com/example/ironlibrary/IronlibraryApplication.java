@@ -113,16 +113,25 @@ public class IronlibraryApplication implements CommandLineRunner {
     }
 
     private void findBooksByTitle() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter book title: ");
-        String title = scanner.nextLine();
-        Book book = bookRepository.findByTitle(title);
-        if (book != null) {
-            System.out.println("Book ISBN                Book Title          Category           Nº of Books");
-            System.out.println(book.getIsbn()+"                "+book.getTitle()+"          "+book.getCategory()+"   " +
-                    "        "+book.getQuantity());
-        } else {
-            System.out.println("Book not found");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter book title: ");
+            String title = scanner.nextLine().trim();
+            Book book = bookRepository.findByTitle(title);
+            if (book != null) {
+                System.out.println("Book ISBN                Book Title          Category           Nº of Books");
+                System.out.println(book.getIsbn() + "        " + book.getTitle() + "          " + book.getCategory() + "   " +
+                        "        " + book.getQuantity());
+                System.out.println("------------------------------------------------------");
+
+            } else {
+                System.out.println("Book not found");
+            }
+            System.out.println("To exit press a key");
+            scanner.nextLine();
+
+        }catch (Exception e){
+            throw new RuntimeException("error when entering title data");
         }
 
     }
