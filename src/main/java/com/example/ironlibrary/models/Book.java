@@ -8,7 +8,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true)
+    @Column(unique = true,name = "book_isbn")
     private String isbn;
     private String title;
     private String category;

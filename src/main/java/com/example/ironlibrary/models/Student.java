@@ -3,14 +3,15 @@ package com.example.ironlibrary.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
     private int id;
-    @Column(name = "usn")
+    @Column(name = "student_usn")
     private String usn;
-    @Column(name = "name")
+    @Column(name = "studen_name")
     private String name;
 
     public Student() {}
