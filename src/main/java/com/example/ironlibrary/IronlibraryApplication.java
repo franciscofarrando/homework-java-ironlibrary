@@ -76,14 +76,14 @@ public class IronlibraryApplication implements CommandLineRunner {
             int userOption = scanner.nextInt();
             switch (userOption) {
                 case 1:
+                    //Add a book
                     System.out.println(menu[0]);
                     addBook();
                     continue;
                 case 2:
+                    //Search book by title
                     System.out.println(menu[1]);
-
-
-
+                    findBooksByTitle();
 
                     continue;
                 case 3:
@@ -108,6 +108,21 @@ public class IronlibraryApplication implements CommandLineRunner {
             }
 
 
+        }
+
+    }
+
+    private void findBooksByTitle() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter book title: ");
+        String title = scanner.nextLine();
+        Book book = bookRepository.findByTitle(title);
+        if (book != null) {
+            System.out.println("Book ISBN                Book Title          Category           Nº of Books");
+            System.out.println(book.getIsbn()+"                "+book.getTitle()+"          "+book.getCategory()+"   " +
+                    "        "+book.getQuantity());
+        } else {
+            System.out.println("Book not found");
         }
 
     }
