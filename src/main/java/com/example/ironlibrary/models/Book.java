@@ -13,20 +13,19 @@ public class Book {
     private String title;
     private String category;
     private int quantity;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private Author author;
 
     public Book() {
     }
 
-    public Book( String isbn, String title, String category, int quantity, Author author) {
+    public Book( String isbn, String title, String category, int quantity) {
 
         this.isbn = isbn;
         this.title = title;
         this.category = category;
         this.quantity = quantity;
-        this.author = author;
     }
 
     public Author getAuthor() {

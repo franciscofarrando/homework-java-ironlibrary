@@ -37,7 +37,7 @@ public class Main {
         System.out.print("Enter number of books:");
         int numberOfBooks = scanner.nextInt();
 
-        Book book = new Book(isbn, title, category, numberOfBooks, null);
+//        Book book = new Book(isbn, title, category, numberOfBooks, null);
 //        bookRepository.save(book);
 //        Author author = new Author();
 //

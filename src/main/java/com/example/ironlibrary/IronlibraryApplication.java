@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -64,13 +66,11 @@ public class IronlibraryApplication implements CommandLineRunner {
         System.out.print("Enter number of books:");
         int numberOfBooks = scanner.nextInt();
 
-        Author authorFound = authorRepository.findByName(authorName);
-        Book book;
-        if(authorFound != null) {
-            book = new Book(isbn, title, category, numberOfBooks, authorFound);
-        }else{
-            book = new Book(isbn, title, category, numberOfBooks, null);
-        }
+        Book book = new Book(isbn,title,category,numberOfBooks);
+        Author author = new Author(authorName, authorMail);
+        author.setAuthorBook(book);
+        book.setAuthor(author);
+
         bookRepository.save(book);
 
     }
