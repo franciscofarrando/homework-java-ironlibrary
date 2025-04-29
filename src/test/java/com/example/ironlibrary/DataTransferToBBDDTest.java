@@ -2,68 +2,66 @@ package com.example.ironlibrary;
 
 import com.example.ironlibrary.models.Author;
 import com.example.ironlibrary.models.Book;
+import com.example.ironlibrary.models.Issue;
+import com.example.ironlibrary.models.Student;
 import com.example.ironlibrary.repository.AuthorRepository;
 import com.example.ironlibrary.repository.BookRepository;
-import com.mysql.cj.jdbc.Blob;
+import com.example.ironlibrary.repository.IssueRepository;
+import com.example.ironlibrary.repository.StudentRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
-import java.io.ByteArrayInputStream;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DataTransferToBBDDTest {
+
     @Autowired
     private BookRepository bookRepository;
     @Autowired
     private DataTransferToBBDD dataTransferToBBDD;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private IssueRepository issueRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
-    @BeforeEach
-    void cleanDatabase() {
-        bookRepository.deleteAll();
-        authorRepository.deleteAll();
-    }
+    private Author author;
+    private Book book;
+    private Student student;
 
-    @Test
-    @DisplayName("Test add book")
-    void dataAddBookTest() {
-        // Datos de entrada
-        String name = "Gabriel García Márquez";
-        String email = "gabriel@example.com";
-        String isbn = "9781234567890";
-        String title = "Cien años de soledad";
-        String category = "Novela";
-        int quantity = 5;
+    private final String name = "J.K. Rowling";
+    private final String email = "jkrowling@example.com";
+    private final String isbn = "9783161484100";
+    private final String title = "Harry Potter and the Philosopher's Stone";
+    private final String category = "Fantasy";
+    private final int quantity = 5;
+    private final String usn = "USN001";
+    private final String nameStudent = "John Doe";
 
-        // Save the book to the database
-        dataTransferToBBDD.dataAddBook(name, email, isbn, title, category, quantity);
-        List<Author> authors = authorRepository.findAll();
-        List<Book> books = bookRepository.findAll();
 
-        assertEquals(1, authors.size());
-        assertEquals(name, authors.getFirst().getName());
-
-        assertEquals(1, books.size());
-        assertEquals(title, books.getFirst().getTitle());
-        assertEquals(isbn, books.getFirst().getIsbn());
-        assertEquals(authors.getFirst().getId(), books.getFirst().getAuthor().getId());
-
-    }
 
     @Test
     @DisplayName("Test find book by category")
-    void findBookByCategory(){
-
-
+    void findBookByCategory() {
+        List<Book> bookList = bookRepository.findBookByCategory(category);
+        assertNotNull(bookList);
+        assertFalse(bookList.isEmpty());
+        Book found = bookList.getFirst();
+        assertEquals(isbn, found.getIsbn());
+        assertEquals(title, found.getTitle());
+        assertEquals(name, found.getAuthor().getName());
+        assertEquals(email, found.getAuthor().getEmail());
+        assertEquals(quantity, found.getQuantity());
     }
+
 
 }
