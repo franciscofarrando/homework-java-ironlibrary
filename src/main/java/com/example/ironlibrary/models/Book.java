@@ -1,14 +1,15 @@
-package com.example.ironlibrary.models;
+package com.Library.Library.model;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "books")
+
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(unique = true,name = "book_isbn")
+    private Long id;
+    @Column(unique = true)
     private String isbn;
     private String title;
     private String category;
@@ -16,16 +17,11 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
+    @OneToOne(mappedBy = "book")
+    private Issue issue;
 
     public Book() {
-    }
 
-    public Book( String isbn, String title, String category, int quantity) {
-
-        this.isbn = isbn;
-        this.title = title;
-        this.category = category;
-        this.quantity = quantity;
     }
 
     public Author getAuthor() {
@@ -36,11 +32,19 @@ public class Book {
         this.author = author;
     }
 
-    public int getId() {
+    public Issue getIssue() {
+        return issue;
+    }
+
+    public void setIssue(Issue issue) {
+        this.issue = issue;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -74,16 +78,5 @@ public class Book {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", isbn='" + isbn + '\'' +
-                ", title='" + title + '\'' +
-                ", category='" + category + '\'' +
-                ", quantity=" + quantity +
-                '}';
     }
 }

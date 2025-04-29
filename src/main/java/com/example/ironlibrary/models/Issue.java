@@ -1,43 +1,31 @@
-package com.example.ironlibrary.models;
+package com.Library.Library.model;
 
 import jakarta.persistence.*;
-
 
 @Entity
 @Table(name = "issue")
 public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "issue_id")
-    private int issueId;
-    @Column(name = "issue_date")
+    private Integer id;
     private String issueDate;
-    @Column(name = "return_date")
     private String returnDate;
-
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
     @OneToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
-    private Student issueStudent;
-    @OneToOne
-    @JoinColumn(name = "book_isbn", referencedColumnName = "book_isbn")
-    private Book issueBook;
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     public Issue() {
     }
 
-    public Issue(String issueDate, String returnDate, Student issueStudent, Book issueBook) {
-        this.issueDate = issueDate;
-        this.returnDate = returnDate;
-        this.issueStudent = issueStudent;
-        this.issueBook = issueBook;
+    public Integer getId() {
+        return id;
     }
 
-    public int getIssueId() {
-        return issueId;
-    }
-
-    public void setIssueId(int issueId) {
-        this.issueId = issueId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getIssueDate() {
@@ -56,30 +44,19 @@ public class Issue {
         this.returnDate = returnDate;
     }
 
-    public Student getIssueStudent() {
-        return issueStudent;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setIssueStudent(Student issueStudent) {
-        this.issueStudent = issueStudent;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Book getIssueBook() {
-        return issueBook;
+    public Book getBook() {
+        return book;
     }
 
-    public void setIssueBook(Book issueBook) {
-        this.issueBook = issueBook;
-    }
-
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "issueId=" + issueId +
-                ", issueDate='" + issueDate + '\'' +
-                ", returnDate='" + returnDate + '\'' +
-                ", issueStudent=" + issueStudent +
-                ", issueBook=" + issueBook +
-                '}';
+    public void setBook(Book book) {
+        this.book = book;
     }
 }
