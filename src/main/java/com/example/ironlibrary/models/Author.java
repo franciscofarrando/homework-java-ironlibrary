@@ -16,8 +16,7 @@ public class Author {
     @Column(name = "author_email")
     private String email;
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,orphanRemoval = true)
-
-    List<com.Library.Library.model.Book> books;
+    List<Book> books;
 
     public Author() {
     }
