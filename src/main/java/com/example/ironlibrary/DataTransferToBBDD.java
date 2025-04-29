@@ -82,7 +82,41 @@ public class DataTransferToBBDD {
     }
 
 
+    public void findByAuthor(String name) {
+        List<Book> books = bookRepository.findBookByAuthorName(name);
+        if (books != null) {
+            System.out.printf("%-20s %-50s %-30s %-12s%n",
+                    "Book ISBN", "Book Title", "Category", "No of Books");
+            for (Book book : books) {
+                System.out.printf("%-20s %-50s %-30s %-12s%n",
+                        book.getIsbn(),
+                        book.getTitle(),
+                        book.getCategory(),
+                        book.getQuantity());
+            }
+        } else {
+            System.out.println("No books found.");
+        }
 
+    }
+
+    public void findByAlongAuthor(String name){
+        List<Book> books = bookRepository.findBookByAuthorName(name);
+        if (books != null) {
+            Book book = books.getFirst();
+            System.out.printf("%-20s %-50s %-30s %-12s%n",
+                    "Book ISBN", "Book Title", "Category", "No of Books");
+
+            System.out.printf("%-20s %-50s %-30s %-12s%n",
+                    book.getIsbn(),
+                    book.getTitle(),
+                    book.getCategory(),
+                    book.getQuantity());
+
+        } else {
+            System.out.println("No books found.");
+        }
+    }
 
 
 
