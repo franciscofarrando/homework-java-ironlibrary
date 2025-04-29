@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.util.Scanner;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.Library.Library")
+@EnableJpaRepositories(basePackages = "com.example.ironlibrary")
 public class LibraryApplication implements CommandLineRunner {
 
     @Autowired

@@ -34,6 +34,9 @@ public class BookHandler {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private DataTransferToBBDD dataTransferToBBDD;
+
 
     static Scanner scanner = new Scanner(System.in);
 
@@ -63,23 +66,7 @@ public class BookHandler {
         System.out.print("Enter Author Email: ");
         String authorEmail = scanner.nextLine();
 
-        // Create a new Author object
-        Author author = new Author();
-        author.setName(authorName);
-        author.setEmail(authorEmail);
-        // Save the author to the database
-        authorRepository.save(author);
-
-        // Create a new Book object
-        Book book = new Book();
-        book.setIsbn(IsbnOk);
-        book.setTitle(title);
-        book.setCategory(category);
-        book.setQuantity(quantity);
-        book.setAuthor(author);
-        // Save the book to the database
-        bookRepository.save(book);
-
+        dataTransferToBBDD.dataAddBook(authorName, authorEmail, IsbnOk, title, category, quantity);
         // Show the book
         System.out.println("Book added successfully!");
 
