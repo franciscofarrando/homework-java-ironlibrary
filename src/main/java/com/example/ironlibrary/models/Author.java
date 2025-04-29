@@ -1,36 +1,39 @@
-package com.example.ironlibrary.models;
+package com.Library.Library.model;
 
 import jakarta.persistence.*;
-import com.example.ironlibrary.models.Book;
+
+import java.util.List;
 
 @Entity
 @Table(name = "author")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "author_id")
-    private Integer authorId;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "email")
-    private String email;
 
+    private Integer id;
+    @Column(name = "author_name")
+    private String name;
+    @Column(name = "author_email")
+    private String email;
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,orphanRemoval = true)
+
+    List<Book> books;
 
     public Author() {
     }
 
-    public Author(String name, String email) {
+    public Author(String name, String email, List<Book> books) {
         this.name = name;
         this.email = email;
-
+        this.books = books;
     }
 
-    public Integer getAuthorId() {
-        return authorId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,15 +50,5 @@ public class Author {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Author{" +
-                "authorId='" + authorId + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 }
