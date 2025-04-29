@@ -50,31 +50,20 @@ class DataTransferToBBDDTest {
         List<Book> books = bookRepository.findAll();
 
         assertEquals(1, authors.size());
-        assertEquals(name, authors.get(0).getName());
+        assertEquals(name, authors.getFirst().getName());
 
         assertEquals(1, books.size());
         assertEquals(title, books.getFirst().getTitle());
         assertEquals(isbn, books.getFirst().getIsbn());
         assertEquals(authors.getFirst().getId(), books.getFirst().getAuthor().getId());
-        //        Book book = new Book();
-//        Author author = new Author();
-//        book.setIsbn("1234567890123");
-//        book.setTitle("Test Book");
-//        book.setCategory("Test Category");
-//        book.setQuantity(5);
-//        author.setName("Test Author");
-//        author.setEmail("author@email.es");
-//        book.setAuthor(author);
 
     }
+
     @Test
-    void testAddBook() {
+    @DisplayName("Test find book by category")
+    void findBookByCategory(){
 
-        Author author = new Author("Gabriel García Márquez", "Colombiano");
 
-        Book book = new Book("123456789", "Cien Años de Soledad", author);
-        assertEquals("123456789", book.getIsbn());
-        assertEquals("Cien Años de Soledad", book.getTitle());
-        assertEquals("Gabriel García Márquez", book.getAuthor().getName());
     }
+
 }

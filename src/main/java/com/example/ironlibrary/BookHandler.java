@@ -47,8 +47,8 @@ public class BookHandler {
         String IsbnOk = checkISBN(isbn);
         System.out.print("Enter Title: ");
         String title = scanner.nextLine();
-        System.out.print("Enter Category: ");
         checkEmpty(title, 1);
+        System.out.print("Enter Category: ");
         String category = scanner.nextLine();
         checkEmpty(category, 2);
         System.out.print("Enter Quantity: ");
@@ -78,79 +78,32 @@ public class BookHandler {
         String category = scanner.nextLine();
         checkEmpty(category, 2);
         // Find books by category
-        var books = bookRepository.findBookByCategory(category);
-        if (books != null) {
-            System.out.printf("%-20s %-50s %-30s %-12s%n",
-                    "Book ISBN", "Book Title", "Category", "No of Books");
-            for (Book book : books) {
-                System.out.printf("%-20s %-50s %-30s %-12d%n",
-                        book.getIsbn(),
-                        book.getTitle(),
-                        book.getCategory(),
-                        book.getQuantity());
-            }
-        } else {
-            System.out.println("No books found.");
-        }
+        dataTransferToBBDD.findByCategory(category);
+
     }
 
     public void findByTitle() throws BookExceptions {
         System.out.print("Enter the title of the book: ");
         String title = scanner.nextLine();
         checkEmpty(title, 1);
-        Book book = bookRepository.findByTitleContaining(title);
-        if (book != null) {
-            System.out.printf("%-20s %-50s %-30s %-12s%n",
-                    "Book ISBN", "Book Title", "Category", "No of Books");
-            System.out.printf("%-20s %-50s %-30s %-12s%n",
-                    book.getIsbn(),
-                    book.getTitle(),
-                    book.getCategory(),
-                    book.getQuantity());
-        } else {
-            System.out.println("No books found.");
-        }
+        dataTransferToBBDD.findByTitle(title);
+
     }
 
     public void findByAuthor() throws BookExceptions {
         System.out.print("Enter the author name: ");
         String authorName = scanner.nextLine();
         checkEmpty(authorName, 3);
-        List<Book> books = bookRepository.findBookByAuthorName(authorName);
-        if (books != null) {
-            System.out.printf("%-20s %-50s %-30s %-12s%n",
-                    "Book ISBN", "Book Title", "Category", "No of Books");
-            for (Book book : books) {
-                System.out.printf("%-20s %-50s %-30s %-12s%n",
-                        book.getIsbn(),
-                        book.getTitle(),
-                        book.getCategory(),
-                        book.getQuantity());
-            }
-        } else {
-            System.out.println("No books found.");
-        }
+        dataTransferToBBDD.findByAuthor(authorName);
+
     }
 
     public void findByAlongAuthor() throws BookExceptions {
         System.out.println("Enter the author name: ");
         String authorName = scanner.nextLine();
         checkEmpty(authorName, 3);
-        List<Book> books = bookRepository.findBookByAuthorName(authorName);
-        if (books != null) {
-            Book book = books.getFirst();
-            System.out.printf("%-20s %-50s %-30s %-12s%n",
-                    "Book ISBN", "Book Title", "Category", "No of Books");
+        dataTransferToBBDD.findByAlongAuthor(authorName);
 
-            System.out.printf("%-20s %-50s %-30s %-12s%n",
-                    book.getIsbn(),
-                    book.getTitle(),
-                    book.getCategory(),
-                    book.getQuantity());
-
-        } else {
-            System.out.println("No books found.");
-        }
     }
 
     public void issueBookToStudent() {
@@ -160,50 +113,15 @@ public class BookHandler {
         String name = scanner.nextLine();
         System.out.println("Enter a book ISBN: ");
         String isbn = scanner.nextLine();
-        // Find Student By USN and Name
-        Optional<Student> student = studentRepository.findStudentByUsnAndName(usn, name);
-        //Find Book By ISBN
-        Optional<Book> book = bookRepository.findBookByIsbn(isbn);
-
-        if (student.isPresent() && book.isPresent()) {
-            // ISSUE BOOK
-            Issue issue = new Issue();
-            issue.setIssueDate(new Date().toString());
-            issue.setReturnDate(new Date().toString() + 15);
-            issue.setStudent(student.get());
-            issue.setBook(book.get());
-            System.out.println("Issue Book");
-        } else {
-            System.out.println("Student or Book not found");
-        }
-
+        dataTransferToBBDD.issueBookToStudent(usn,name,isbn);
 
     }
+
     public void findBooksByUsbn() throws BookExceptions {
         System.out.println("Enter a usn of Student: ");
         String usn = scanner.nextLine();
         checkEmpty(usn, 4);
-        // Find id of Student by Student  USN
-        Optional<Student>student = studentRepository.findStudentByUsn(usn);
-        if (student.isPresent()) {
-            // find iisued by student
-            List<Issue> issues = issueRepository.findIssueByStudent(student.get());
-            if (issues != null) {
-                System.out.printf("%-50s %-30s %-12s%n",
-                        "Book Title", "Student Name", "Return Date");
-                for (Issue issue : issues) {
-                    Book book = issue.getBook();
-                    System.out.printf("%-50s %-30s %-12s%n",
-                            issue.getBook().getTitle(),
-                            issue.getStudent().getName(),
-                            issue.getReturnDate());
-                }
-            } else {
-                System.out.println("No books found.");
-            }
-        }
-
-
+        dataTransferToBBDD.findBooksByUsbn(usn);
     }
 
     // VALIDATES ADD BOOKS

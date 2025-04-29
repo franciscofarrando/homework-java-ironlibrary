@@ -27,10 +27,6 @@ public class Author {
         this.books = books;
     }
 
-    public Author(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
 
     public Integer getId() {
         return id;
