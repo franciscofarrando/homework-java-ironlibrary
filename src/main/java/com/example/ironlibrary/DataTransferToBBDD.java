@@ -118,6 +118,57 @@ public class DataTransferToBBDD {
         }
     }
 
+    public void issueBookToStudent(String usn,String name, String isbn){
+        // Find Student By USN and Name
 
+        Optional<Student> student = studentRepository.findStudentByUsnAndName(usn, name);
+        //Find Book By ISBN
+        Optional<Book> book = bookRepository.findBookByIsbn(isbn);
+
+        if (student.isPresent() && book.isPresent()) {
+            // ISSUE BOOK
+            Issue issue = new Issue();
+            //TODO: mirar el dia del prestamo y el retorno del mismo
+            issue.setIssueDate(new Date().toString());
+            issue.setReturnDate(new Date().toString() + 15);
+            issue.setStudent(student.get());
+            issue.setBook(book.get());
+            // update quantity of book
+            book.get().setQuantity(book.get().getQuantity() - 1);
+            // save book
+            bookRepository.save(book.get());
+            // save issue
+            issueRepository.save(issue);
+            System.out.println("Issue Book");
+        } else {
+            System.out.println("Student or Book not found");
+        }
+
+    }
+
+
+    public void findBooksByUsbn(String usn){
+
+        // Find id of Student by Student  USN
+        Optional<Student> student = studentRepository.findStudentByUsn(usn);
+        if (student.isPresent()) {
+            // find iisued by student
+            List<Issue> issues = issueRepository.findIssueByStudent(student.get());
+            if (issues != null) {
+                System.out.printf("%-50s %-30s %-12s%n",
+                        "Book Title", "Student Name", "Return Date");
+                for (Issue issue : issues) {
+                    Book book = issue.getBook();
+                    System.out.printf("%-50s %-30s %-12s%n",
+                            issue.getBook().getTitle(),
+                            issue.getStudent().getName(),
+                            issue.getReturnDate());
+                }
+            } else {
+                System.out.println("No books found.");
+            }
+        }
+
+    }
 
 }
