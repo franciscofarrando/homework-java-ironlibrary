@@ -62,6 +62,68 @@ class DataTransferToBBDDTest {
         assertEquals(email, found.getAuthor().getEmail());
         assertEquals(quantity, found.getQuantity());
     }
+    @Test
+    @DisplayName("Test find book by title")
+    void findBookByTitle() {
+        Book found = bookRepository.findByTitle(title);
+        assertNotNull(found);
+        assertEquals(title, found.getTitle());
+        assertEquals(isbn, found.getIsbn());
+        assertEquals(category, found.getCategory());
+        assertEquals(quantity, found.getQuantity());
+    }
+
+    @Test
+    @DisplayName("Test find book by author")
+    void findBookByAuthor() {
+        List<Book> bookList = bookRepository.findBookByAuthorName(name);
+        assertNotNull(bookList);
+        assertFalse(bookList.isEmpty());
+        Book found = bookList.getFirst();
+        assertEquals(name, found.getAuthor().getName());
+        assertEquals(email, found.getAuthor().getEmail());
+        assertEquals(isbn, found.getIsbn());
+        assertEquals(title, found.getTitle());
+        assertEquals(category, found.getCategory());
+        assertEquals(quantity, found.getQuantity());
+    }
+
+    @Test
+    @DisplayName("Test issue book to student")
+    void issueBookToStudent() {
+        Optional<Student> optionalStudent = studentRepository.findStudentByUsn(usn);
+        assertTrue(optionalStudent.isPresent());
+        Student foundStudent = optionalStudent.get();
+        List<Issue> issues = issueRepository.findIssueByStudent(foundStudent);
+        assertFalse(issues.isEmpty());
+        Issue foundIssue = issues.get(0);
+
+        assertEquals(usn, foundStudent.getUsn());
+        assertEquals(nameStudent, foundStudent.getName());
+        assertEquals(isbn, foundIssue.getBook().getIsbn());
+        assertEquals(title, foundIssue.getBook().getTitle());
+        assertEquals(category, foundIssue.getBook().getCategory());
+        assertEquals(quantity, foundIssue.getBook().getQuantity());
+        assertEquals(name, foundIssue.getBook().getAuthor().getName());
+    }
+
+    @Test
+    @DisplayName("Test find books by USN")
+    void findBooksByUsn() {
+        Optional<Student> studentOpt = studentRepository.findStudentByUsn(usn);
+        assertTrue(studentOpt.isPresent());
+        Student foundStudent = studentOpt.get();
+
+        List<Issue> issues = issueRepository.findIssueByStudent(foundStudent);
+        assertNotNull(issues);
+        assertFalse(issues.isEmpty());
+
+        Issue issue = issues.get(0);
+        assertEquals(isbn, issue.getBook().getIsbn());
+        assertEquals(title, issue.getBook().getTitle());
+        assertEquals(category, issue.getBook().getCategory());
+        assertEquals(name, issue.getBook().getAuthor().getName());
+    }
 
 
 }
