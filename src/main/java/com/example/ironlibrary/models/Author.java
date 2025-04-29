@@ -1,4 +1,4 @@
-package com.Library.Library.model;
+package com.example.ironlibrary.models;
 
 import jakarta.persistence.*;
 
@@ -17,7 +17,7 @@ public class Author {
     private String email;
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,orphanRemoval = true)
 
-    List<Book> books;
+    List<com.Library.Library.model.Book> books;
 
     public Author() {
     }

@@ -2,29 +2,40 @@ package com.example.ironlibrary.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
-    private int id;
-    @Column(name = "student_usn")
+    private Long id;
+    @Column(unique = true)
     private String usn;
-    @Column(name = "studen_name")
     private String name;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL,orphanRemoval = true)
+    List<Issue> issues;
+    public Student() {
+    }
 
-    public Student() {}
+    public List<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+
     public Student(String usn, String name) {
         this.usn = usn;
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,14 +53,5 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", usn='" + usn + '\'' +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

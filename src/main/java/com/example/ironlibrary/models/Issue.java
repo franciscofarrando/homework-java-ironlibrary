@@ -1,4 +1,4 @@
-package com.Library.Library.model;
+package com.example.ironlibrary.models;
 
 import jakarta.persistence.*;
 
