@@ -16,10 +16,10 @@ public class Issue {
     private String returnDate;
 
     @OneToOne
-    @JoinColumn(name = "student_usn", referencedColumnName = "usn")
+    @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student issueStudent;
     @OneToOne
-    @JoinColumn(name = "book_isbn", referencedColumnName = "isbn")
+    @JoinColumn(name = "book_isbn", referencedColumnName = "book_isbn")
     private Book issueBook;
 
     public Issue() {
