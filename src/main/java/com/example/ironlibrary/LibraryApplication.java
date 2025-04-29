@@ -20,6 +20,6 @@ public class LibraryApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        appHandler.menu();
+        //appHandler.menu();
     }
 }
